@@ -152,16 +152,16 @@ function page() {
                   Please wait
                 </>
               ) : (
-                'Sign In'
+                'Sign Up'
               )}
             </Button>
           </form>
         </Form>
         <div className="text-center mt-4">
           <p>
-            Not a member yet?{' '}
-            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
-              Sign up
+            Already have an account?{' '}
+            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+              Sign in
             </Link>
           </p>
         </div>
