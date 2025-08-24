@@ -12,18 +12,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import Link from "next/link"
-import { useState, useEffect } from "react" 
-import {useDebounceValue,useDebounceCallback} from 'usehooks-ts'
-import { toast, useSonner } from "sonner"
+import { useState } from "react" 
+import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-import { signupSchema } from "@/schemas/signupSchema"
-import axios, { AxiosError } from 'axios'
-import { ApiResponse } from "@/types/ApiResponse"
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
 import { signinSchema } from "@/schemas/signinSchema";
 import { signIn } from "next-auth/react";
-import { error } from "console";
 
 
 export default function page() {
@@ -64,9 +58,7 @@ export default function page() {
         router.replace('/dashboard')
     }
 
-
-  
-  
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-800">
@@ -85,7 +77,7 @@ export default function page() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Email or Username</FormLabel>
                   <Input type="email" {...field} />
                   <FormMessage />
                 </FormItem>
@@ -109,9 +101,9 @@ export default function page() {
         </Form>
         <div className="text-center mt-4">
           <p>
-            Already have an account?{' '}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
-              Sign in
+            Don\'t have an account?{' '}
+            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+              Sign up
             </Link>
           </p>
         </div>
@@ -122,4 +114,3 @@ export default function page() {
 
 
 
-}

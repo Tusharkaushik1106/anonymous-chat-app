@@ -11,16 +11,40 @@ export async function sendVerificationEmail(
     verifyCode:string
 ): Promise<ApiResponse> {
     try {
-        await resend.emails.send({
-        from: 'onboarding@resend.dev',
+        console.log('Attempting to send email to:', email, 'with code:', verifyCode);
+        console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
+        
+        const response = await resend.emails.send({
+        from: 'Anonymous Chat <onboarding@resend.dev>',
         to: email,
         subject: "Mystery Message Verification code",
         react: VerificationEmail({username,otp:verifyCode}),
 });
-        return{success:true,message:' verification email sent successfully'}
-    } catch (emailError) {
-        console.error("error sending verification email",emailError)
-        return{success:false,message:'failed to send verification email'}
+        
+        console.log('Full Resend response:', response);
+        
+        if (response.error) {
+            console.error('Resend error:', response.error);
+            return {success: false, message: response.error.message || 'Resend error'};
+        }
+        
+        if (!response.data || !response.data.id) {
+            console.error('Resend returned invalid response:', response);
+            return {success: false, message: 'Resend returned invalid response'};
+        }
+        
+        console.log('Email sent successfully with ID:', response.data.id);
+        return{success:true,message:`verification email sent successfully (id: ${response.data.id})`}
+    } catch (emailError:any) {
+        console.error("error sending verification email", emailError)
+        console.error("Full error details:", {
+            message: emailError?.message,
+            statusCode: emailError?.statusCode,
+            name: emailError?.name,
+            stack: emailError?.stack
+        });
+        const msg = emailError?.message || 'failed to send verification email'
+        return{success:false,message: msg}
 
         
     }

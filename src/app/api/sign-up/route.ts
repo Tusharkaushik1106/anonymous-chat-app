@@ -69,9 +69,8 @@ export async function POST(request: Request){
         if (!emailResponse.success) {
             return Response.json({
                 success:false,
-                message:"Username already taken"
+                message: emailResponse.message || "Failed to send verification email"
             },{status:500})
-            
         }
 
         return Response.json({
