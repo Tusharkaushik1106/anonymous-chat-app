@@ -8,7 +8,9 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CardHeader, CardContent, Card } from '@/components/ui/card';
-import { useCompletion } from 'ai/react';
+import { useCompletion } from 'ai/react';\
+
+//AI REACT FEATURE IS NOT COMPILED HERE IN THE FORM (4 ERRORS )
 import {
   Form,
   FormControl,
